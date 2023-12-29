@@ -24,11 +24,19 @@ void Playlist::SetTracks(const std::vector<Track>& newTracks) {
     tracks = newTracks;
 }
 
-void Playlist::PrintTracks() const {
+void Playlist::Display() {
+    std::cout << "Базовый класс" << std::endl;
     for (const Track& track : tracks) {
-        std::cout << track;
-        std::cout << std::endl;
+        std::cout << track << std::endl;
     }
+    for (const Album& album : albums) {
+        std::cout << album << std::endl;
+    }
+}
+
+void Playlist::CallVirtualDisplay() {
+    std::cout << "Вызов виртуальной функции через невиртуальную" << std::endl;
+    Display();
 }
 
 void Playlist::DeleteTrack() {
@@ -51,10 +59,6 @@ void Playlist::DeleteTrack() {
     }
 }
 
-void Playlist::CallVirtualDeleteTrack(Playlist& playlist) {
-    playlist.DeleteTrack();
-}
-
 void Playlist::AddAlbum(Album& album) {
     albums.push_back(album);
 }
@@ -63,12 +67,16 @@ void Playlist::SetAlbums(const std::vector<Album>& newAlbums) {
     albums = newAlbums;
 }
 
-void Playlist::PrintAlbums() const {
-    for (const Album& album : albums) {
-        album.DisplayInfo();
-        std::cout << std::endl;
+std::ostream& operator<<(std::ostream& os, const Playlist& obj) {
+    for (const Track& track : obj.tracks) {
+        std::cout << track << std::endl;
     }
+    for (const Album& album : obj.albums) {
+        std::cout << album << std::endl;
+    }
+    return os;
 }
+
 
 void Playlist::DeleteAlbum() {
     int number;
@@ -88,3 +96,4 @@ void Playlist::DeleteAlbum() {
         }
     }
 }
+

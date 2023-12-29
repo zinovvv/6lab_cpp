@@ -1,10 +1,9 @@
 #pragma once
 
-#include "LibraryItem.h"
 #include <string>
 
 //Класс "Трек"
-class Track: public LibraryItem{
+class Track{
 private:
 
     std::string title;
@@ -33,11 +32,9 @@ public:
 
     //Вывод трека с помощью перегруженного оператора <<
     friend std::ostream& operator<<(std::ostream& os, const Track& obj);
-
-    void DisplayInfo() const override;
-
+    
     //Короткий вывод трека
-    void OutputShortTrack() const;
+    void DisplayInfo() const;
 
     //Перегрузка оператора ++(префиксный)
     Track& operator++();

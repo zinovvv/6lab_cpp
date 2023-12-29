@@ -134,15 +134,17 @@
     <ClCompile Include="MusicLibrary.cpp" />
     <ClCompile Include="Playlist.cpp" />
     <ClCompile Include="Track.cpp" />
+    <ClCompile Include="ObjectList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Album.h" />
     <ClInclude Include="Artist.h" />
-    <ClInclude Include="LibraryItem.h" />
+    <ClInclude Include="DeleteItem.h" />
     <ClInclude Include="Favorites.h" />
     <ClInclude Include="MusicLibrary.h" />
     <ClInclude Include="Playlist.h" />
     <ClInclude Include="Track.h" />
+    <ClInclude Include="ObjectList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

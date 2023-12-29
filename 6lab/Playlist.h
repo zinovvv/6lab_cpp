@@ -1,11 +1,12 @@
 #pragma once
 
+#include "DeleteItem.h"
 #include "Album.h"
 #include <string>
 #include <vector>
 
 //Класс "Плейлист", содержит вектор треков и вектор альбомов
-class Playlist {
+class Playlist: public DeleteItem{
 protected:
     std::string title;
     int numTracks;
@@ -27,13 +28,12 @@ public:
     //Заполнение вектора tracks
     void SetTracks(const std::vector<Track>& newTracks);
 
-    //Вывод треков
-    void PrintTracks() const;
+    //Виртуальный метод вывода информации о треке
+    void Display();
 
-    //Виртуальный метод удаления трека
-    virtual void DeleteTrack();
+    void CallVirtualDisplay();
 
-    void CallVirtualDeleteTrack(Playlist& playlist);
+    void DeleteTrack();
 
     //Добавление альбома
     void AddAlbum(Album& album);
@@ -41,11 +41,10 @@ public:
     //Заполнение вектора albums
     void SetAlbums(const std::vector<Album>& newAlbums);
 
-    //Вывод альбомов
-    void PrintAlbums() const;
+    friend std::ostream& operator<<(std::ostream& os, const Playlist& obj);
 
     //Удаление альбома
-    void DeleteAlbum();
+    void DeleteAlbum() override;
 
     std::string GetTitle() {
         return title;

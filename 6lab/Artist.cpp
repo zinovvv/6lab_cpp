@@ -16,11 +16,11 @@ void Artist::SetAlbums(const std::vector<Album>& newAlbums) {
     albums = newAlbums;
 }
 
-void Artist::PrintAlbums() const {
-    for (const Album& album : albums) {
-        album.DisplayInfo();
-        std::cout << std::endl;
+std::ostream& operator<<(std::ostream& os, const Artist& obj) {
+    for (const Album& album : obj.albums) {
+        std::cout << album << std::endl;
     }
+    return os;
 }
 
 void Artist::DeleteAlbum() {

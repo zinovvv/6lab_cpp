@@ -3,6 +3,7 @@
 #include "Artist.h"
 #include "Playlist.h"
 #include "Favorites.h"
+#include "ObjectList.h"
 #include <string>
 #include <vector>
 

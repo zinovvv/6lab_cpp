@@ -62,25 +62,16 @@ Track Track::InputShortTrack() {
 }
 
 std::ostream& operator<<(std::ostream& os, const Track& obj){
-    std::cout << "\nНазвание: " << obj.title << std::endl;
-    std::cout << "Исполнитель: " << obj.artist << std::endl;
-    std::cout << "Длительность: " << obj.duration << " seconds" << std::endl;
-    std::cout << "Год выхода: " << obj.year << std::endl;
-    std::cout << "Жанр: " << obj.genre << std::endl;
-    std::cout << "Кол-во прослушиваний: " << obj.listens << std::endl;
+    os << "\nНазвание: " << obj.title << std::endl;
+    os << "Исполнитель: " << obj.artist << std::endl;
+    os << "Длительность: " << obj.duration << " seconds" << std::endl;
+    os << "Год выхода: " << obj.year << std::endl;
+    os << "Жанр: " << obj.genre << std::endl;
+    os << "Кол-во прослушиваний: " << obj.listens << std::endl;
     return os;
 }
 
 void Track::DisplayInfo() const {
-    std::cout << "\nНазвание: " << title << std::endl;
-    std::cout << "Исполнитель: " << artist << std::endl;
-    std::cout << "Длительность: " << duration << " seconds" << std::endl;
-    std::cout << "Год выхода: " << year << std::endl;
-    std::cout << "Жанр: " << genre << std::endl;
-    std::cout << "Кол-во прослушиваний: " << listens << std::endl;
-}
-
-void Track::OutputShortTrack() const {
     std::cout << std::left << "Название: " << std::setw(25) << title;
     std::cout << std::left << "Длительность: " << duration << std::setw(10) << " сек";
     std::cout << "Жанр: " << genre << std::endl;

@@ -1,6 +1,8 @@
 #include "Favorites.h"
 #include <iostream>
 
+//Вызов конструктора базового класса в конструкторе производного класса с параметрами
+
 Favorites::Favorites(const std::string& title, int numTracks, int numAlbums) :
     Playlist::Playlist(title, numTracks, numAlbums) {};
 
@@ -14,6 +16,7 @@ void Favorites::CallBaseAddTrack(Track& track) {
     std::cout << "Демонстрация перегрузки метода базового класса с вызовом его из производного класса" << std::endl;
 }
 
+//Перегрузка оператора присваивания объекту производного класса объектов базового класса
 void Favorites::operator=(Playlist& obj) {
     this->numTracks = obj.GetNumTracks();
     this->numAlbums = obj.GetNumAlbums();
@@ -21,22 +24,12 @@ void Favorites::operator=(Playlist& obj) {
     this->albums = obj.GetAlbums();
 }
 
-void Favorites::DeleteTrack() {
-    int number;
-    while (true) {
-        try {
-            std::cout << "Введите номер трека, который хотите удалить:" << std::endl;
-            std::cin >> number;
-            std::cin.ignore();
-            if (number < 1 || number> tracks.size()) {
-                throw std::out_of_range("Некорректный номер трека");
-            }
-            tracks.erase(tracks.begin() + number - 1);
-            --numTracks;
-            break;
-        }
-        catch (const std::out_of_range& e) {
-            std::cerr << "Ошибка удаления трека: " << e.what() << std::endl;
-        }
+void Favorites::Display() {
+    std::cout << "Производный класс" << std::endl;
+    for (const Track& track : tracks) {
+        std::cout << track << std::endl;
+    }
+    for (const Album& album : albums) {
+        std::cout << album << std::endl;
     }
 }

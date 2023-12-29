@@ -9,33 +9,16 @@ int main() {
     SetConsoleCP(1251);
     setlocale(LC_ALL, "rus");
 
-    //Создание библиотеки
-    MusicLibrary myMusicLibrary(1, 1);
-
-    //Создание плейлиста
+    //Создание плейлиста(Базовый класс)
     Playlist myPlaylist("Любимые треки", 3, 2);
-
-    Favorites favorites("Избранное", 3, 1);
-
     //Вектор с треками для плейлиста
     std::vector<Track> tracks = {
     {"Кукушка", "Виктор Цой", 400, 1986, "рок"},
     {"Метель", "Би-2", 345, 1998, "рок"},
     {"Лето в городе", "Иван Дорн", 328, 2012, "поп"}
     };
-    
-    favorites.AddTrack(tracks[0]);
-    
-    favorites.CallBaseAddTrack(tracks[1]);
-    favorites.PrintTracks();
-
-    //Заполнение вектора tracks внутри класса Playlist
     myPlaylist.SetTracks(tracks);
-
-    //Работа с динамической память
-    //Выделяю память для массива указателей на объекты класса Album
     Album** albumsArray = new Album * [2];
-
     //Первый альбом для плейлиста
     Album* album1 = new Album("Несчастные люди", "ЛСП", 2023, 12, {});
     std::vector<Track> tracks1 = {
@@ -52,11 +35,7 @@ int main() {
         {"Сикрет Плейс", "ЛСП", 203, 2023, "поп хип-хоп"},
         {"Стоп Игра", "ЛСП", 240, 2023, "поп хип-хоп"}
     };
-
-    std::cout << tracks1[9];
-
     album1->SetTracks(tracks1);
-
     //Второй альбом для плейлиста
     Album* album2 = new Album("Дух мира", "Джизус", 2023, 13, {});
     std::vector<Track> tracks2 = {
@@ -75,21 +54,17 @@ int main() {
         {"Каплей дождя", "Джизус", 238, 2023, "альтернатива"}
     };
     album2->SetTracks(tracks2);
-
     //Заполняем массив указателей на альбомы
     albumsArray[0] = album1;
     albumsArray[1] = album2;
-
     //Создаем вектор albums, который будет содержать копии объектов Album
     std::vector<Album> albums;
     for (int i = 0; i < 2; i++) {
         // Добавляем копии альбомов в вектор
         albums.push_back(*albumsArray[i]);
     }
-
     //Заполняем плейлист альбомами
     myPlaylist.SetAlbums(albums);
-
     //Первый альбом для артиста и вектор треков для него
     Album albumLsp1("Magic City", "ЛСП", 2015, 9, {});
     std::vector<Track> tracksLsp1 =
@@ -104,7 +79,6 @@ int main() {
     {"Уровни", "ЛСП", 258, 2015, "рэп"} };
     //Заполнение альбома треками
     albumLsp1.SetTracks(tracksLsp1);
-
     //Второй альбом и вектор треков для него
     Album albumLsp2("Tragic City", "ЛСП", 2017, 10, {});
     std::vector<Track> tracksLsp2  =
@@ -120,76 +94,70 @@ int main() {
     {"Деньги не проблема", "ЛСП", 258, 2015, "рэп"}};
     //Заполнение альбома треками
     albumLsp2.SetTracks(tracksLsp2);
-
     //Создаю вектор альбомов, который содержит созданные альбомы
     std::vector<Album> albumsLsp = { albumLsp1,albumLsp2 };
-
     //Выделяю память для Artist
     Artist* myArtist = new Artist("ЛСП", 2);
-
     //Обращаюсь к методу объекта через '->' (Заполнение артиста альбомами)
     myArtist->SetAlbums(albumsLsp);
 
-    //Добавляю созданный плейлист в музыкальную библиотеку
-    myMusicLibrary.AddPlaylist(myPlaylist);
 
-    //Создаю новый объект myPlaylist, полученный из дружественной функции GetPlaylist
-    myPlaylist = GetPlaylist(myMusicLibrary, 0);
 
-    std::vector<LibraryItem*> library;
-    library.push_back(&tracks[0]);
-    library.push_back(&tracks[2]);
-    library.push_back(album1);
+    //ДЕМОНСТРАЦИЯ РАБОТЫ ПРОГРАММЫ
 
-    for (const auto& item : library) {
-        item->DisplayInfo();
-    }
 
-    std::cout << "Вывод треков из плейлиста\n" << std::endl;
-    //Вывод треков из плейлиста
-    myPlaylist.PrintTracks();
-    //Удаление трека на выбор
-    myPlaylist.DeleteTrack();
-    //Вывод треков
-    myPlaylist.PrintTracks();
+    //Создание плейлиста "Избранное"(Производный класс), в конструкторе вызывается конструктор базового класса
+    Favorites favorites("Избранное", 3, 1);
 
-    //Аналогично, как с треками
-    std::cout << "\nВывод альбомов из плейлиста\n" << std::endl;
-    myPlaylist.PrintAlbums();
-    std::cout << "\nУдаление альбома из плейлиста\n" << std::endl;
-    myPlaylist.DeleteAlbum();
-    std::cout << "\nВывод альбомов из плейлиста\n" << std::endl;
-    myPlaylist.PrintAlbums();
+    //Перегрузка метода базового класса 
+    favorites.AddTrack(tracks[0]);
 
+    //С вызовом метода базового
+    favorites.CallBaseAddTrack(tracks[1]);
+
+    //Вывод
+    std::cout << favorites;
+
+    //Демонстрация перегрузки оператора присваивания
     favorites = myPlaylist;
+    
+    //Вывод
+    std::cout << favorites;
 
-    myPlaylist.CallVirtualDeleteTrack(favorites);
+    //Если внутри невиртуального метода CallVirtualDisplay находится виртуальный метод,
+    //То вызовется перегруженный метод дочернего класса,
+    //Если там невиртуальный метод, то будет вызываться метод базового класса
+    Playlist* ptrPlaylist = &favorites;
+    ptrPlaylist->CallVirtualDisplay();
+    
+    //Демонстрация работы абстрактного класса
+    DeleteItem* itemPtr;
 
-    favorites.PrintTracks();
+    itemPtr = &myPlaylist;
+    itemPtr->DeleteAlbum();
 
-    Playlist* ptr = nullptr;
-    ptr = &favorites;
-    ptr->DeleteTrack();
-    favorites.PrintTracks();
+    itemPtr = &favorites;
+    itemPtr->DeleteAlbum();
 
-    //Добавление исполнителя в музыкальную библиотеку
-    myMusicLibrary.AddArtist(*myArtist);
+    itemPtr = myArtist;
+    itemPtr->DeleteAlbum();
 
-    //Создаю новый объект myArtist, полученный из метода GetArtist
-    myArtist = myMusicLibrary.GetArtist(0);
-    std::cout << "\nВывод альбомов артиста\n" << std::endl;
-    myArtist->PrintAlbums();
-    std::cout << "\nУдаление альбома артиста\n" << std::endl;
-    myArtist->DeleteAlbum();
-    std::cout << "\nВывод альбомов артиста\n" << std::endl;
-    myArtist->PrintAlbums();
+    //Демонстрация работы шаблонного класса
+    ObjectList<Track> trackList;
+    trackList.addObject(tracks[0]);
+    trackList.addObject(tracks[2]);
+    trackList.displayObjects();
 
-    //Освобождение памяти, выделенной для объектов альбомов
+    ObjectList<Album> albumList;
+    albumList.addObject(albumLsp2);
+    albumList.displayObjects();
+
+
     for (int i = 0; i < 2; i++) {
         delete albumsArray[i];
     }
-    //Освобождение памяти, выделенной для массива указателей на альбомы
     delete[] albumsArray;
+    delete myArtist;
 
     return 0;
 }

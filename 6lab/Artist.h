@@ -1,11 +1,12 @@
 #pragma once
 
+#include "DeleteItem.h"
 #include "Album.h"
 #include <string>
 #include <vector>
 
 //Класс "Артист", содержит вектор альбомов
-class Artist {
+class Artist: public DeleteItem{
 private:
     std::string name;
     int numAlbums;
@@ -21,10 +22,10 @@ public:
     void SetAlbums(const std::vector<Album>& newAlbums);
 
     //Вывод альбомов
-    void PrintAlbums() const;
+    friend std::ostream& operator<<(std::ostream& os, const Artist& obj);
 
     //Удаление альбома
-    void DeleteAlbum();
+    void DeleteAlbum() override;
 
     //Деструктор
     ~Artist() = default;

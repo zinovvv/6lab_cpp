@@ -5,7 +5,7 @@
 #include "Track.h"  // Включаем заголовочный файл класса Track
 
 //Класс "Альбом", содержит в себе вектор треков
-class Album: public LibraryItem {
+class Album{
 private:
     std::string title;
     std::string artist;
@@ -25,8 +25,8 @@ public:
     //Заполнение вектора tracks
     void SetTracks(const std::vector<Track>& newTracks);
 
-    //Вывод
-    void DisplayInfo() const;
+    //Перегрузка оператора << для вывода информации
+    friend std::ostream& operator<<(std::ostream& os, const Album& obj);
 
     //Деструктор
     ~Album();
