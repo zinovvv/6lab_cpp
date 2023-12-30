@@ -29,7 +29,7 @@ public:
     void SetTracks(const std::vector<Track>& newTracks);
 
     //Виртуальный метод вывода информации о треке
-    void Display();
+    virtual void Display();
 
     void CallVirtualDisplay();
 

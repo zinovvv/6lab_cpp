@@ -134,7 +134,6 @@
     <ClCompile Include="MusicLibrary.cpp" />
     <ClCompile Include="Playlist.cpp" />
     <ClCompile Include="Track.cpp" />
-    <ClCompile Include="ObjectList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Album.h" />

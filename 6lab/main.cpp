@@ -18,7 +18,7 @@ int main() {
     {"Лето в городе", "Иван Дорн", 328, 2012, "поп"}
     };
     myPlaylist.SetTracks(tracks);
-    Album** albumsArray = new Album * [2];
+    Album** albumsArray = new Album * [1];
     //Первый альбом для плейлиста
     Album* album1 = new Album("Несчастные люди", "ЛСП", 2023, 12, {});
     std::vector<Track> tracks1 = {
@@ -36,30 +36,11 @@ int main() {
         {"Стоп Игра", "ЛСП", 240, 2023, "поп хип-хоп"}
     };
     album1->SetTracks(tracks1);
-    //Второй альбом для плейлиста
-    Album* album2 = new Album("Дух мира", "Джизус", 2023, 13, {});
-    std::vector<Track> tracks2 = {
-         {"Я голоден", "Джизус", 171, 2023, "альтернатива"},
-        {"Едкий дым", "Джизус", 224, 2023, "альтернатива"},
-        {"Маньяк", "Джизус", 161, 2023, "альтернатива"},
-        {"Галактика", "Джизус", 330, 2023, "альтернатива"},
-        {"Всё забрать", "Джизус", 239, 2023, "альтернатива"},
-        {"Плавишься", "Джизус", 167, 2023, "альтернатива"},
-        {"Ждал тебя", "Джизус", 225, 2023, "альтернатива"},
-        {"Рай или Ад", "Джизус", 258, 2023, "альтернатива"},
-        {"Spirit of the World", "Джизус", 217, 2023, "альтернатива"},
-        {"Жвачка", "Джизус", 266, 2023, "альтернатива"},
-        {"Заповедь", "Джизус", 100, 2023, "альтернатива"},
-        {"Сигареты и творчество", "Джизус", 155, 2023, "альтернатива"},
-        {"Каплей дождя", "Джизус", 238, 2023, "альтернатива"}
-    };
-    album2->SetTracks(tracks2);
     //Заполняем массив указателей на альбомы
     albumsArray[0] = album1;
-    albumsArray[1] = album2;
     //Создаем вектор albums, который будет содержать копии объектов Album
     std::vector<Album> albums;
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 1; i++) {
         // Добавляем копии альбомов в вектор
         albums.push_back(*albumsArray[i]);
     }
@@ -116,12 +97,14 @@ int main() {
     favorites.CallBaseAddTrack(tracks[1]);
 
     //Вывод
+    std::cout <<std::endl<< "Вывод плейлиста 'Избранное'" << std::endl;
     std::cout << favorites;
 
     //Демонстрация перегрузки оператора присваивания
     favorites = myPlaylist;
     
     //Вывод
+    std::cout << std::endl << "Вывод плейлиста 'Избранное' после присваивания" << std::endl;
     std::cout << favorites;
 
     //Если внутри невиртуального метода CallVirtualDisplay находится виртуальный метод,
@@ -143,6 +126,7 @@ int main() {
     itemPtr->DeleteAlbum();
 
     //Демонстрация работы шаблонного класса
+    std::cout << std::endl << "Демонстрация работы шаблонного класса" << std::endl;
     ObjectList<Track> trackList;
     trackList.addObject(tracks[0]);
     trackList.addObject(tracks[2]);
@@ -153,9 +137,7 @@ int main() {
     albumList.displayObjects();
 
 
-    for (int i = 0; i < 2; i++) {
-        delete albumsArray[i];
-    }
+    delete albumsArray[0];
     delete[] albumsArray;
     delete myArtist;
 

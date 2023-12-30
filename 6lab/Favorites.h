@@ -16,5 +16,5 @@ public:
 
 	void operator=(Playlist& obj);
 
-	void Display();
+	void Display() override;
 };
